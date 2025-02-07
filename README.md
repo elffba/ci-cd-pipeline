@@ -1,54 +1,61 @@
-CI/CD Pipeline with Docker
+# CI/CD Pipeline with Docker
 
-This project demonstrates the process of setting up a CI/CD pipeline using GitHub Actions, Docker, and Docker Hub. The pipeline is designed to automatically build, test, and deploy a Dockerized application every time a change is pushed to the main branch of the repository.
-Features
+This project demonstrates a **CI/CD pipeline** using **GitHub Actions**, **Docker**, and **Docker Hub**. It automates the process of building, testing, and deploying a Dockerized application on every push to the `main` branch.
 
-CI/CD Pipeline using GitHub Actions
-Docker for containerization of the application
-Docker Hub for storing Docker images
-Automated build and deployment with every commit to the main branch
+## Features
+- **CI/CD pipeline** with GitHub Actions
+- **Docker** for containerization
+- **Docker Hub** for storing Docker images
+- Automated deployment with each push to `main`
 
-Technologies Used
-Docker
-GitHub Actions
-Docker Hub
-Node.js
+## Technologies Used
+- **Docker**
+- **GitHub Actions**
+- **Docker Hub**
 
-How It Works
-Docker Build: Every time a change is pushed to the main branch, GitHub Actions triggers the pipeline.
-Docker Image Creation: The pipeline builds a Docker image for the application.
-Push to Docker Hub: The built Docker image is pushed to Docker Hub using the credentials stored in GitHub Secrets.
-Deployment: The image is ready for deployment, allowing you to easily deploy it to a server or cloud platform.
+## How It Works
+1. On each push to `main`, GitHub Actions triggers the pipeline.
+2. The pipeline builds a Docker image.
+3. The image is pushed to Docker Hub using credentials stored in GitHub Secrets.
 
-Setup Instructions
-Prerequisites
-A Docker Hub account for storing the Docker image.
-A GitHub repository with the source code of the application.
-GitHub Secrets set up for DOCKER_USERNAME and DOCKER_PASSWORD for authentication.
+## Setup Instructions
 
-Steps
-Clone the repository:
-git clone https://github.com/<your-username>/ci-cd-pipeline.git
+### Prerequisites
+- Docker Hub account
+- GitHub repository
+- GitHub Secrets for `DOCKER_USERNAME` and `DOCKER_PASSWORD`
 
-cd ci-cd-pipeline
-Build the Docker image locally:
-docker build -t <your-docker-username>/my-app .
+### Steps
+1. **Clone the repository**:
 
-Push the Docker image to Docker Hub:
-docker push <your-docker-username>/my-app
+   ```bash
+   git clone https://github.com/<your-username>/ci-cd-pipeline.git
+   cd ci-cd-pipeline
 
-Set up GitHub Actions:
-Go to your repository’s Settings > Secrets and Variables > Actions.
-Add the following secrets:
-DOCKER_USERNAME: Your Docker Hub username.
-DOCKER_PASSWORD: Your Docker Hub password.
+2. **Build Docker image**:
+   ```bash
+   docker build -t <your-docker-username>/my-app .
+   
+3. **Push Docker image to Docker Hub**:
+   ```bash
+   docker push <your-docker-username>/my-app
 
-GitHub Actions Workflow:
-The .github/workflows/ci-cd-pipeline.yml file contains the GitHub Actions configuration for the CI/CD pipeline.
-Every time you push to the main branch, GitHub Actions will trigger the pipeline to build and push the Docker image.
+   4. **Set GitHub Secrets for `DOCKER_USERNAME` and `DOCKER_PASSWORD`**:
+   - Go to your GitHub repository → Settings → Secrets
+   - Add a new secret `DOCKER_USERNAME` with your Docker Hub username
+   - Add a new secret `DOCKER_PASSWORD` with your Docker Hub password
 
-Running the Application
-Once the Docker image is pushed to Docker Hub, you can pull and run the image on any machine:
-docker pull <your-docker-username>/my-app
-docker run -p 3000:3000 <your-docker-username>/my-app
-This will run the application on port 3000 (or change the port number as needed).
+5. **GitHub Actions will automatically run on each push to `main`**.
+
+## Running the App
+
+Once the image is on Docker Hub, pull and run it:
+
+1. **Pull the image from Docker Hub**:
+   ```bash
+   docker pull <your-docker-username>/my-app
+   
+2. **Run the Docker container**:
+   ```bash
+   docker run -p 3000:3000 <your-docker-username>/my-app
+
